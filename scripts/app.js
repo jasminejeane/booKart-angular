@@ -1,20 +1,41 @@
 angular.module("todoListApp", [])
 
-.controller('mainCtrl', function($scope) {
-  $scope.helloWorld = function() {
-    console.log("Hello there! This the helloWorld controller function, in the mainCtrl!");
+.controller('mainCtrl', function($scope, dataService) {
+  $scope.helloConsole = dataService.helloConsole;
+
+  $scope.learningNgChange = function() {
+    console.log("An input changed");
   };
   
-  $scope.todos = [
+  $scope.helloWorld = dataService.helloWorld;
 
-  {"name": "Focus on angular"},
-  {"name": "You may have to cancel BGC volunteering"},
-  {"name": "Do rangular app"},
-  {"name": "Finish this tutorial"},
-  {"name": "Watch Chronicals of Narnia"},
-  {"name": "Clean up for your guest"},
-  {"name": "Stay away from negativity"}
-  
+dataService.getTodos(function(response){
+  console.log(response.data);
+  $scope.todos =response.data;
 
-]
 });
+})
+
+// http provider handles all http request
+// dependency injection
+.service('dataService', function($http){
+
+  this.helloWorld = function(){
+    console.log("This is a hello console service!");
+  };
+
+  this.getTodos = function(callback){
+    $http.get('mock/todos.json')
+  .then(callback);
+};
+});
+
+
+
+
+
+
+
+
+
+;
