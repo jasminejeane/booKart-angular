@@ -1,20 +1,6 @@
 angular.module("todoListApp", [])
 
-.controller('mainCtrl', function($scope, dataService) {
-  $scope.helloConsole = dataService.helloConsole;
 
-  $scope.learningNgChange = function() {
-    console.log("An input changed");
-  };
-  
-  $scope.helloWorld = dataService.helloWorld;
-
-dataService.getTodos(function(response){
-  console.log(response.data);
-  $scope.todos =response.data;
-
-});
-})
 
 // http provider handles all http request
 // dependency injection
@@ -28,6 +14,17 @@ dataService.getTodos(function(response){
     $http.get('mock/todos.json')
   .then(callback);
 };
+  
+  this.deleteTodo = function(todo) {
+  
+    console.log("The " + todo.name + " todo has been deleted!");
+//    other logic
+  };
+  
+  this.saveTodo = function(todo) {
+       console.log("The " + todo.name + " todo has been saved!");
+//    other logic
+  };
 });
 
 
@@ -38,4 +35,3 @@ dataService.getTodos(function(response){
 
 
 
-;
